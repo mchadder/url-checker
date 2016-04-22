@@ -1,3 +1,4 @@
 # Format is Expected HTTP response code component of URL after the DAD
-# e.g. 200 /f?p=123:234:
+# e.g. 200 http://server:port/uri
+# bash brace expansion is supported as the example below shows.
 404 http://localhost:8000/{1,2,3,4,5,6}
