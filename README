@@ -28,13 +28,13 @@ if not then it is considered a FAIL.
 
 The following is example output using the example urls.txt file.
 
- $ ./url-checker.sh urls.txt N Y
- FAIL! RECEIVED 000 BUT EXPECTED 404        : http://localhost:8000/1
- FAIL! RECEIVED 000 BUT EXPECTED 404        : http://localhost:8000/2
- FAIL! RECEIVED 000 BUT EXPECTED 404        : http://localhost:8000/3
- FAIL! RECEIVED 000 BUT EXPECTED 404        : http://localhost:8000/4
- FAIL! RECEIVED 000 BUT EXPECTED 404        : http://localhost:8000/5
- FAIL! RECEIVED 000 BUT EXPECTED 404        : http://localhost:8000/6
+ $ ./url-checker.sh urls.txt Y Y
+FAIL:CD:"content_type":RCVD:"":EXPD:"text/html":http://localhost:8000/1
+FAIL:CD:"content_type":RCVD:"":EXPD:"text/html":http://localhost:8000/2
+FAIL:CD:"content_type":RCVD:"":EXPD:"text/html":http://localhost:8000/3
+FAIL:CD:"content_type":RCVD:"":EXPD:"text/html":http://localhost:8000/4
+FAIL:CD:"content_type":RCVD:"":EXPD:"text/html":http://localhost:8000/5
+FAIL:CD:"content_type":RCVD:"":EXPD:"text/html":http://localhost:8000/6
 
 The primary use case for this is to allow a basic level of unit test of a web 
 application.

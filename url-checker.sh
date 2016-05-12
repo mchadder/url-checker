@@ -39,15 +39,21 @@ then
             # display the output or not.
             if [ "$2" != "N" ] 
             then
-              echo "PASS: RECEIVED $CURL_OUTPUT AS EXPECTED $EXPECTED_OUTPUT : $OUTPUT_URL"
+              RESULT="PASS"
             fi
           else
             # Check to see if the third parameter (show fails) defines that we should
             # display the output or not.
             if [ "$3" != "N" ]
             then 
-              echo "FAIL! RECEIVED $CURL_OUTPUT BUT EXPECTED $EXPECTED_OUTPUT : $OUTPUT_URL"
+              RESULT="FAIL"
             fi
+          fi
+
+          if [ $RESULT != "" ]
+          then
+            echo "$RESULT:CD:\"$CURL_CODE\":RCVD:\"$CURL_OUTPUT\":EXPD:\"$EXPECTED_OUTPUT\":$OUTPUT_URL"
+            RESULT=""
           fi
         done
       fi
