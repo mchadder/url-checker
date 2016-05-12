@@ -1,6 +1,6 @@
 # url-checker
 
-This is a simple bash script which takes as input a file which contains a list 
+This is a bash script which takes as input a file which contains a list 
 of URLs and also an expected HTTP response code.
 
 Bash brace expansion is supported (although not specifically enabled by the 
@@ -8,8 +8,10 @@ shell script). This script will rely on the relevant SHELLOPTS (or similar)
 being set to enable this functionality.
 
  # Format is Expected HTTP response code component of URL after the DAD
- # e.g. 200 http://server:port/uri
- 404 http://localhost:8000/{1,2,3,4,5,6}
+ # e.g. 200 http://server:port/uri [curl config file]
+ 403 http://localhost:8000/{1,2,3,4,5,6} curl.cfg
+ 200 http://localhost:8000/a{1,2,3,4,5,6}
+ 200 http://localhost:8000/{1,2,3,4,5,6} curl2.cfg
 
 Comments are allowed by using the normal convention of prepending the 
 line with a #.
@@ -17,7 +19,9 @@ line with a #.
 Then, the script will run a curl command for each URL (after brace expansion) 
 of the following form:
 
-$ curl -sL -w "%{http_code}" URL -o /dev/null`
+$ curl -sL -w "%{http_code}" URL -o /dev/null` 
+or
+$ curl -sL -K CONFIGFILE -w "%{http_code}" URL -o /dev/null`
 
 This will then output the HTTP response code. If this matches the expected 
 response code from the URLs file, then that is classed as a PASS, 
