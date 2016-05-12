@@ -15,7 +15,8 @@ Comments are allowed by using the normal convention of prepending the
 line with a #.
 
 Then, the script will run a curl command for each URL (after brace expansion) 
-of the following form:
+of the following form. Note that in this example, http_code was used as the 
+curl format response code.
 
 $ curl -sL -w "%{http_code}" URL -o /dev/null` 
 or
