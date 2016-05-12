@@ -13,9 +13,10 @@ then
         # The format of the file is: 404 URL, so use cut to split on space
         # the first field will be the error code and the second will be the 
         # URL pattern. The optional third field will be the optional curl config file.
-        HTTP_CODE=`echo $p | cut -f 1 -d " "`
-        URL=`echo $p | cut -f 2 -d " "`
-        CONFIG_FILE=`echo $p | cut -f 3 -d " "`
+        CURL_CODE=`echo $p | cut -f 1 -d " "`
+        EXPECTED_OUTPUT=`echo $p | cut -f 2 -d " "`
+        URL=`echo $p | cut -f 3 -d " "`
+        CONFIG_FILE=`echo $p | cut -f 4 -d " "`
 
         # Have to use the dread eval() here since brace expansion occurs before 
         # parameter expansion. Be careful that the URL list in the file 
@@ -26,25 +27,26 @@ then
           # Generate the curl command to output the HTTP response code
           if [ -f "$CONFIG_FILE" ] 
           then
-            CURL=`curl -sL -K "$CONFIG_FILE" -w "%{http_code}" $OUTPUT_URL -o /dev/null`
+            CURL_OUTPUT=`curl -sL -K "$CONFIG_FILE" -w "%{$CURL_CODE}" $OUTPUT_URL -o /dev/null`
           else
-            CURL=`curl -sL -w "%{http_code}" $OUTPUT_URL -o /dev/null`
+            CURL_OUTPUT=`curl -sL -w "%{$CURL_CODE}" $OUTPUT_URL -o /dev/null`
           fi
 
-          if [ $CURL != $HTTP_CODE ]
+          # Use a bash regex to do the pattern matching
+          if [[ "$CURL_OUTPUT" =~ "$EXPECTED_OUTPUT" ]]
           then
-            # Check to see if the third parameter (show fails) defines that we should
-            # display the output or not.
-            if [ "$3" != "N" ]
-            then 
-              echo "FAIL! RECEIVED $CURL BUT EXPECTED $HTTP_CODE        : $OUTPUT_URL"
-            fi
-          else
             # Check to see if the second parameter (show passes) defines that we should
             # display the output or not.
             if [ "$2" != "N" ] 
             then
-              echo "PASS: RECEIVED $CURL AS EXPECTED             : $OUTPUT_URL"
+              echo "PASS: RECEIVED $CURL_OUTPUT AS EXPECTED $EXPECTED_OUTPUT : $OUTPUT_URL"
+            fi
+          else
+            # Check to see if the third parameter (show fails) defines that we should
+            # display the output or not.
+            if [ "$3" != "N" ]
+            then 
+              echo "FAIL! RECEIVED $CURL_OUTPUT BUT EXPECTED $EXPECTED_OUTPUT : $OUTPUT_URL"
             fi
           fi
         done
