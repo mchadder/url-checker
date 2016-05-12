@@ -24,9 +24,9 @@ then
         for OUTPUT_URL in $(eval echo "$URL");
         do 
           # Generate the curl command to output the HTTP response code
-          if [ -f $CONFIG_FILE ] 
+          if [ -f "$CONFIG_FILE" ] 
           then
-            CURL=`curl -sL -K $CONFIG_FILE -w "%{http_code}" $OUTPUT_URL -o /dev/null`
+            CURL=`curl -sL -K "$CONFIG_FILE" -w "%{http_code}" $OUTPUT_URL -o /dev/null`
           else
             CURL=`curl -sL -w "%{http_code}" $OUTPUT_URL -o /dev/null`
           fi
