@@ -1,7 +1,8 @@
 # url-checker
 
-This is a bash script which takes as input a file which contains a list 
-of URLs and also an expected HTTP response code.
+This is a bash script which takes as input a file which contains an expected 
+HTTP response code and a URL pattern. There is an optional field that allows
+a custom curl config file for each pattern. 
 
 Bash brace expansion is supported (although not specifically enabled by the 
 shell script). This script will rely on the relevant SHELLOPTS (or similar) 
