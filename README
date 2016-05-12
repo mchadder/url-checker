@@ -1,18 +1,15 @@
 # url-checker
 
-This is a bash script which takes as input a file which contains an expected 
-HTTP response code and a URL pattern. There is an optional field that allows
-a custom curl config file for each pattern. 
+This is a bash script which takes as input a file which contains a
+curl response format, an expected response pattern, a URL pattern and an optional 
+custom curl config file.
 
 Bash brace expansion is supported (although not specifically enabled by the 
 shell script). This script will rely on the relevant SHELLOPTS (or similar) 
 being set to enable this functionality.
 
- # Format is Expected HTTP response code component of URL after the DAD
- # e.g. 200 http://server:port/uri [curl config file]
- 403 http://localhost:8000/{1,2,3,4,5,6} curl.cfg
- 200 http://localhost:8000/a{1,2,3,4,5,6}
- 200 http://localhost:8000/{1,2,3,4,5,6} curl2.cfg
+See the example urls.txt file for more documentation about the format and
+available options. 
 
 Comments are allowed by using the normal convention of prepending the 
 line with a #.
