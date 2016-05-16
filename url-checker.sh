@@ -50,7 +50,7 @@ then
             fi
           fi
 
-          if [ $RESULT != "" ]
+          if [ "$RESULT" != "" ]
           then
             echo "$RESULT:CD:\"$CURL_CODE\":RCVD:\"$CURL_OUTPUT\":EXPD:\"$EXPECTED_OUTPUT\":$OUTPUT_URL"
             RESULT=""
